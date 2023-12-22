@@ -11,7 +11,7 @@ frame.grid()
 
 
 # Create a label widget
-ttk.Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
+Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
 
 # Player object
 player1 = Player(name="Delali")
@@ -21,17 +21,12 @@ print("\n")
 def greet() -> None:
     print("Button Clicked!")
 
-# Create a style
-btn1_style = ttk.Style()
-# Configure the foreground color for the button using the style
-btn1_style.configure("Custom.TButton", foreground="red", background="blue", relief="raised")
-
 # Create a button widget
-btn1 = ttk.Button(frame, text="Button", style="Custom.TButton", command=greet)
+btn1 = Button(frame, text="Button", command=greet)
 btn1.grid(column=0, row=1)
 
 # Quit btn
-ttk.Button(frame, text="Quit", command=root.destroy).grid(column=1, row=1)
+Button(frame, text="Quit", command=root.destroy).grid(column=1, row=1)
 
 def main() -> None:
     print("""game start""")
