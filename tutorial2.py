@@ -47,8 +47,6 @@ class MyGUI:
             messagebox.showinfo(title="Message", message=self.textbox.get('1.0', tk.END))
 
     def shortcut(self, event):
-        print(event.keysym)
-        print(event.state)
         if event.state == 12 and event.keysym == "Return":
             self.show_message()
 
