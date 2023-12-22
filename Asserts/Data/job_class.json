@@ -1,0 +1,62 @@
+[
+    {
+        "job_name": "Assasin",
+        "description": "Assasin is a class that is good at killing people.",
+        "passive_skill": [
+            {
+                "skill_name": "Assasination",
+                "damage": 15,
+                "description": "Assasination is a passive skill that allows you to kill people."
+            }
+        ],
+        "active_skill": [
+            {
+                "skill_name": "Stab",
+                "damage": 20,
+                "description": "Stab is an active skill that allows you to stab people."
+            }
+        ],
+        "init_health": 60,
+        "init_mana": 40
+    },
+    {
+        "job_name": "Mage",
+        "description": "Mage is a class that is good at casting spells.",
+        "passive_skill": [
+            {
+                "skill_name": "Magic",
+                "damage": 10,
+                "description": "Magic is a passive skill that allows you to cast spells."
+            }
+        ],
+        "active_skill": [
+            {
+                "skill_name": "Fireball",
+                "damage": 20,
+                "description": "Fireball is an active skill that allows you to cast fireballs."
+            }
+        ],
+        "init_health": 40,
+        "init_mana": 70
+    },
+    {
+        "job_name": "Warrior",
+        "description": "Warrior is a class that is good at fighting.",
+        "passive_skill": [
+            {
+                "skill_name": "Strength",
+                "damage": 20,
+                "description": "Strength is a passive skill that allows you to fight."
+            }
+        ],
+        "active_skill": [
+            {
+                "skill_name": "Slash",
+                "damage": 25,
+                "description": "Slash is an active skill that allows you to slash people."
+            }
+        ],
+        "init_health": 100,
+        "init_mana": 10
+    }
+]
