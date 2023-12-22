@@ -34,6 +34,7 @@ btn1.grid(column=0, row=1)
 ttk.Button(frame, text="Quit", command=root.destroy).grid(column=1, row=1)
 
 def main() -> None:
+    print("""game start""")
     root.mainloop()
 
 if __name__ == "__main__":
