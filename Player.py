@@ -30,4 +30,5 @@ class Player:
         self.combat_power = round(((health_multiplier)*(self.health_bar))+((mana_multiplier)*(self.mana_bar)), 2)
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
-        pass
+        if type_of_skill == "active":
+            pass

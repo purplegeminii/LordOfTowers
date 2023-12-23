@@ -1,0 +1,8 @@
+[
+    {
+        "skill_name": "self-regeneration",
+        "skill_level": "1",
+        "skill_description": "Regenerate {skill_level}% of your health every 10 seconds.",
+        "skill_type": "passive"
+    }
+]
