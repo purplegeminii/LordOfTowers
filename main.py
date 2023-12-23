@@ -14,7 +14,7 @@ frame.grid()
 tk.Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
 
 # Player object
-player1 = Player(name="Delali")
+player1 = Player(name="Delali Nsiah-Asare")
 print(player1)
 print("\n")
 
