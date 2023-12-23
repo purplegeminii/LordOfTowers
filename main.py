@@ -26,7 +26,8 @@ btn1 = tk.Button(frame, text="Button", command=greet)
 btn1.grid(column=0, row=1)
 
 # Quit btn
-tk.Button(frame, text="Quit", command=root.destroy).grid(column=1, row=1)
+quitbtn = tk.Button(frame, text="Quit", command=root.destroy)
+quitbtn.grid(column=1, row=1)
 
 def main() -> None:
     print("""game start""")
