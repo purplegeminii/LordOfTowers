@@ -3,6 +3,11 @@
         "skill_name": "self-regeneration",
         "skill_level": "1",
         "skill_description": "Regenerate {skill_level}% of your health every 10 seconds.",
-        "skill_type": "passive"
+        "skill_type": "passive",
+        "skill_icon": "/Asserts/Pictures/Icons/Skills/self_regeneration.png",
+        "skill_cooldown": "10",
+        "skill_mana_cost": "50/{skill_level}",
+        "skill_range": "NA",
+        "skill_duration": "NA"
     }
 ]
