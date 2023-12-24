@@ -1,43 +1,71 @@
 [
     {
         "job_name": "Assasin",
-        "description": "Assasin is a class that is good at killing people.",
+        "description": "Assasin is a class that is good at stealth arts.",
         "passive_skill": [
             {
-                "skill_name": "Assasination",
-                "damage": 15,
-                "description": "Assasination is a passive skill that allows you to kill people."
+                "skill_name": "stealth",
+                "skill_level": "1",
+                "skill_description": "allows you to negate all life-threatening damage for 30 seconds.",
+                "skill_type": "passive",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/stealth.png",
+                "skill_mana_cost": "1000/{skill_level}",
+                "skill_damage": "NA",
+                "skill_range": "NA",
+                "skill_duration": "30",
+                "skill_cooldown": "300"
             }
         ],
         "active_skill": [
             {
                 "skill_name": "Stab",
-                "damage": 20,
-                "description": "Stab is an active skill that allows you to stab people."
+                "skill_level": "1",
+                "skill_description": "allows you to inflict physical injury to someone.",
+                "skill_type": "active",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/stab.png",
+                "skill_mana_cost": "10/{skill_level}",
+                "skill_damage": "20*{skill_level}",
+                "skill_range": "5",
+                "skill_duration": "1",
+                "skill_cooldown": "3"
             }
         ],
-        "init_health": 60,
-        "init_mana": 40
+        "init_health": 400,
+        "init_mana": 150
     },
     {
         "job_name": "Mage",
         "description": "Mage is a class that is good at casting spells.",
         "passive_skill": [
             {
-                "skill_name": "Magic",
-                "damage": 10,
-                "description": "Magic is a passive skill that allows you to cast spells."
+                "skill_name": "magic-boost",
+                "skill_level": "1",
+                "skill_description": "allows you to boost effect of spells by 5*{skill_level}%.",
+                "skill_type": "passive",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/magic_boost.png",
+                "skill_mana_cost": "1000/{skill_level}",
+                "skill_damage": "NA",
+                "skill_range": "NA",
+                "skill_duration": "60",
+                "skill_cooldown": "300"
             }
         ],
         "active_skill": [
             {
                 "skill_name": "Fireball",
-                "damage": 20,
-                "description": "Fireball is an active skill that allows you to cast fireballs."
+                "skill_level": "1",
+                "skill_description": "allows you to cast a fireball to someone.",
+                "skill_type": "active",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/fireball.png",
+                "skill_mana_cost": "50/{skill_level}",
+                "skill_damage": "30*{skill_level}",
+                "skill_range": "10",
+                "skill_duration": "5",
+                "skill_cooldown": "5"
             }
         ],
-        "init_health": 40,
-        "init_mana": 70
+        "init_health": 350,
+        "init_mana": 200
     },
     {
         "job_name": "Warrior",
@@ -56,7 +84,7 @@
                 "description": "Slash is an active skill that allows you to slash people."
             }
         ],
-        "init_health": 100,
-        "init_mana": 10
+        "init_health": 450,
+        "init_mana": 100
     }
 ]
