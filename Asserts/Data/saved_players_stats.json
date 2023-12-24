@@ -2,5 +2,9 @@
     {
         "playerName": "Player 1",
         "job_name": "Assasin"
+    },
+    {
+        "playerName": "Player 2",
+        "job_name": "Mage"
     }
 ]

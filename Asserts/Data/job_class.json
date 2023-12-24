@@ -1,33 +1,30 @@
 [
     {
-        "job_name": "Assasin",
-        "description": "Assasin is a class that is good at stealth arts.",
+        "job_name": "Assassin",
+        "description": "Assassin is a class that excels in stealth and precision strikes.",
         "passive_skill": [
             {
                 "skill_name": "stealth",
                 "skill_level": "1",
-                "skill_description": "allows you to negate all life-threatening damage for 30 seconds.",
+                "skill_description": "Allows you to evade detection for 20 seconds, reducing incoming damage by 50%.",
                 "skill_type": "passive",
                 "skill_icon": "Asserts/Pictures/Icons/Skills/stealth.png",
-                "skill_mana_cost": "1000/{skill_level}",
-                "skill_damage": "NA",
-                "skill_range": "NA",
                 "skill_duration": "60",
-                "skill_cooldown": "300"
+                "skill_cooldown": "120"
             }
         ],
         "active_skill": [
             {
                 "skill_name": "stab",
                 "skill_level": "1",
-                "skill_description": "allows you to inflict physical injury to someone.",
+                "skill_description": "Inflicts precise damage on a target.",
                 "skill_type": "active",
                 "skill_icon": "Asserts/Pictures/Icons/Skills/stab.png",
-                "skill_mana_cost": "10/{skill_level}",
-                "skill_damage": "20*{skill_level}",
-                "skill_range": "5",
+                "skill_mana_cost": "15/{skill_level}",
+                "skill_damage": "25*{skill_level}",
+                "skill_range": "6",
                 "skill_duration": "1",
-                "skill_cooldown": "2"
+                "skill_cooldown": "1"
             }
         ],
         "init_health": 400,
@@ -35,33 +32,30 @@
     },
     {
         "job_name": "Mage",
-        "description": "Mage is a class that is good at casting spells.",
+        "description": "Mages are masters of elemental magic.",
         "passive_skill": [
             {
-                "skill_name": "magic-boost",
+                "skill_name": "arcane-attunement",
                 "skill_level": "1",
-                "skill_description": "allows you to boost effect of spells by 5*{skill_level}%.",
+                "skill_description": "Increases overall spell damage by 10%.",
                 "skill_type": "passive",
-                "skill_icon": "Asserts/Pictures/Icons/Skills/magic_boost.png",
-                "skill_mana_cost": "1000/{skill_level}",
-                "skill_damage": "NA",
-                "skill_range": "NA",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/arcane_attunement.png",
                 "skill_duration": "60",
-                "skill_cooldown": "300"
+                "skill_cooldown": "180"
             }
         ],
         "active_skill": [
             {
                 "skill_name": "fireball",
                 "skill_level": "1",
-                "skill_description": "allows you to cast a fireball to someone.",
+                "skill_description": "Launches a fiery projectile at a target.",
                 "skill_type": "active",
                 "skill_icon": "Asserts/Pictures/Icons/Skills/fireball.png",
-                "skill_mana_cost": "50/{skill_level}",
-                "skill_damage": "30*{skill_level}",
+                "skill_mana_cost": "60/{skill_level}",
+                "skill_damage": "35*{skill_level}",
                 "skill_range": "10",
                 "skill_duration": "5",
-                "skill_cooldown": "3"
+                "skill_cooldown": "4"
             }
         ],
         "init_health": 350,
@@ -69,33 +63,30 @@
     },
     {
         "job_name": "Warrior",
-        "description": "Warrior is a class that is good at close-combat.",
+        "description": "Warriors are formidable fighters known for their strength and resilience.",
         "passive_skill": [
             {
-                "skill_name": "explosive-strength",
+                "skill_name": "battle-fury",
                 "skill_level": "1",
-                "skill_description": "allows you to boost your physical damage by 30*{skill_level}%.",
+                "skill_description": "Increases physical damage by 15% and reduces incoming damage by 20% for 10 seconds after landing a critical hit.",
                 "skill_type": "passive",
-                "skill_icon": "Asserts/Pictures/Icons/Skills/explosive_strength.png",
-                "skill_mana_cost": "1000/{skill_level}",
-                "skill_damage": "NA",
-                "skill_range": "NA",
-                "skill_duration": "60",
-                "skill_cooldown": "300"
+                "skill_icon": "Asserts/Pictures/Icons/Skills/battle_fury.png",
+                "skill_duration": "10",
+                "skill_cooldown": "30"
             }
         ],
         "active_skill": [
             {
                 "skill_name": "slash",
                 "skill_level": "1",
-                "skill_description": "allows you to slash someone.",
+                "skill_description": "Unleashes a powerful melee strike.",
                 "skill_type": "active",
                 "skill_icon": "Asserts/Pictures/Icons/Skills/slash.png",
-                "skill_mana_cost": "20/{skill_level}",
-                "skill_damage": "80*{skill_level}",
+                "skill_mana_cost": "25/{skill_level}",
+                "skill_damage": "75*{skill_level}",
                 "skill_range": "5",
                 "skill_duration": "1",
-                "skill_cooldown": "5"
+                "skill_cooldown": "6"
             }
         ],
         "init_health": 450,
