@@ -2,12 +2,23 @@
     {
         "skill_name": "self-regeneration",
         "skill_level": "1",
-        "skill_description": "Regenerate {skill_level}% of your health every 10 seconds.",
+        "skill_description": "Regenerate {skill_level}% of your total health every 10 seconds.",
         "skill_type": "passive",
-        "skill_icon": "/Asserts/Pictures/Icons/Skills/self_regeneration.png",
-        "skill_cooldown": "10",
+        "skill_icon": "Asserts/Pictures/Icons/Skills/self_regeneration.png",
         "skill_mana_cost": "50/{skill_level}",
         "skill_range": "NA",
-        "skill_duration": "NA"
+        "skill_duration": "1",
+        "skill_cooldown": "10"
+    },
+    {
+        "skill_name": "strength-boost",
+        "skill_level": "1",
+        "skill_description": "Increase your strength by {skill_level}% for 30 seconds.",
+        "skill_type": "active",
+        "skill_icon": "Asserts/Pictures/Icons/Skills/strength_boost.png",
+        "skill_mana_cost": "100/{skill_level}",
+        "skill_range": "NA",
+        "skill_duration": "30",
+        "skill_cooldown": "60"
     }
 ]

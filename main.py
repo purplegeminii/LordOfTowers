@@ -1,6 +1,7 @@
 from Player import Player
 import tkinter as tk
 from tkinter import ttk
+import timeit
 
 
 root = tk.Tk()
