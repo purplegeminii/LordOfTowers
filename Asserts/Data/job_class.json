@@ -12,13 +12,13 @@
                 "skill_mana_cost": "1000/{skill_level}",
                 "skill_damage": "NA",
                 "skill_range": "NA",
-                "skill_duration": "30",
+                "skill_duration": "60",
                 "skill_cooldown": "300"
             }
         ],
         "active_skill": [
             {
-                "skill_name": "Stab",
+                "skill_name": "stab",
                 "skill_level": "1",
                 "skill_description": "allows you to inflict physical injury to someone.",
                 "skill_type": "active",
@@ -27,7 +27,7 @@
                 "skill_damage": "20*{skill_level}",
                 "skill_range": "5",
                 "skill_duration": "1",
-                "skill_cooldown": "3"
+                "skill_cooldown": "2"
             }
         ],
         "init_health": 400,
@@ -52,7 +52,7 @@
         ],
         "active_skill": [
             {
-                "skill_name": "Fireball",
+                "skill_name": "fireball",
                 "skill_level": "1",
                 "skill_description": "allows you to cast a fireball to someone.",
                 "skill_type": "active",
@@ -61,7 +61,7 @@
                 "skill_damage": "30*{skill_level}",
                 "skill_range": "10",
                 "skill_duration": "5",
-                "skill_cooldown": "5"
+                "skill_cooldown": "3"
             }
         ],
         "init_health": 350,
@@ -69,19 +69,33 @@
     },
     {
         "job_name": "Warrior",
-        "description": "Warrior is a class that is good at fighting.",
+        "description": "Warrior is a class that is good at close-combat.",
         "passive_skill": [
             {
-                "skill_name": "Strength",
-                "damage": 20,
-                "description": "Strength is a passive skill that allows you to fight."
+                "skill_name": "explosive-strength",
+                "skill_level": "1",
+                "skill_description": "allows you to boost your physical damage by 30*{skill_level}%.",
+                "skill_type": "passive",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/explosive_strength.png",
+                "skill_mana_cost": "1000/{skill_level}",
+                "skill_damage": "NA",
+                "skill_range": "NA",
+                "skill_duration": "60",
+                "skill_cooldown": "300"
             }
         ],
         "active_skill": [
             {
-                "skill_name": "Slash",
-                "damage": 25,
-                "description": "Slash is an active skill that allows you to slash people."
+                "skill_name": "slash",
+                "skill_level": "1",
+                "skill_description": "allows you to slash someone.",
+                "skill_type": "active",
+                "skill_icon": "Asserts/Pictures/Icons/Skills/slash.png",
+                "skill_mana_cost": "20/{skill_level}",
+                "skill_damage": "80*{skill_level}",
+                "skill_range": "5",
+                "skill_duration": "1",
+                "skill_cooldown": "5"
             }
         ],
         "init_health": 450,
