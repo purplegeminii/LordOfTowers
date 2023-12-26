@@ -55,7 +55,7 @@ def show_player_status() -> None:
     global frame
     print("Player Status window opened!")
     player_status_canvas = player1.get_player_status(frame)
-    player_status_canvas.place(x=200, y=200)
+    player_status_canvas.place(x=300, y=50)
     frame.after(5000, player_status_canvas.destroy)
 
 buttonframe = tk.Frame(frame)
@@ -78,7 +78,8 @@ update_hp_btn.grid(row=1, column=0, sticky=tk.W+tk.E)
 update_mp_btn = tk.Button(buttonframe, text="Update MP", command=update_mana_bar)
 update_mp_btn.grid(row=1, column=1, sticky=tk.W+tk.E)
 
-buttonframe.grid(row=3, column=0)
+# buttonframe.grid(row=3, column=0)
+buttonframe.place(x=50, y=200)
 
 def main() -> None:
     print("""game start""")
