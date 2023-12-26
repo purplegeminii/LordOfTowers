@@ -5,7 +5,7 @@ import timeit
 
 
 root = tk.Tk()
-root.geometry("1000x600")  # Width x Height
+root.geometry("600x600")  # Width x Height
 root.title("LOT")
 frame = tk.Frame(root, padx=10, pady=10)
 frame.grid()
@@ -49,7 +49,7 @@ def update_mana_bar() -> None:
     mp_canvas.delete(mana_bar)
     mana_bar = mp_canvas.create_rectangle(0, 0, (mana_value) * 2, 30, fill="blue")
 
-def greet() -> None:
+def show_player_status() -> None:
     print("Button Clicked!")
 
 buttonframe = tk.Frame(frame)
@@ -57,7 +57,7 @@ buttonframe.columnconfigure(0, weight=1)
 buttonframe.columnconfigure(1, weight=1)
 
 # Create a button widget
-btn1 = tk.Button(buttonframe, text="Button", command=greet)
+btn1 = tk.Button(buttonframe, text="Status", command=show_player_status)
 btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 
 # Quit btn
