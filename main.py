@@ -52,8 +52,9 @@ def update_mana_bar() -> None:
     mana_bar = mp_canvas.create_rectangle(0, 0, (mana_value) * 2, 30, fill="blue")
 
 def show_player_status() -> None:
-    print("Button Clicked!")
-    player_status_canvas = tk.Canvas(frame, width=200, height=300, bg="red")
+    global frame
+    print("Player Status window opened!")
+    player_status_canvas = player1.get_player_status(frame)
     player_status_canvas.place(x=200, y=200)
 
 buttonframe = tk.Frame(frame)

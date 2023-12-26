@@ -3,6 +3,7 @@ import random
 import json
 from dataclasses import dataclass, field
 from typing import List, Optional
+import tkinter as tk
 
 
 data = open(os.path.join("Asserts/Data", "job_class.json"))
@@ -32,6 +33,11 @@ class Player:
         health_multiplier = 2/3
         mana_multiplier = 3
         self.combat_power = round(((health_multiplier)*(self.health_bar))+((mana_multiplier)*(self.mana_bar)), 2)
+
+    def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
+        player_status = tk.Canvas(frame, width=200, height=300, bg="red")
+        player_status.create_text(100, 30, text="Player Status", fill="blue", font=('Arial', 18))
+        return player_status
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
         if type_of_skill == "active":
