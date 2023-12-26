@@ -56,6 +56,7 @@ def show_player_status() -> None:
     print("Player Status window opened!")
     player_status_canvas = player1.get_player_status(frame)
     player_status_canvas.place(x=200, y=200)
+    frame.after(5000, player_status_canvas.destroy)
 
 buttonframe = tk.Frame(frame)
 buttonframe.columnconfigure(0, weight=1)
