@@ -37,6 +37,24 @@ class Player:
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
         player_status = tk.Canvas(frame, width=200, height=300, bg="red")
         player_status.create_text(100, 30, text="Player Status", fill="blue", font=('Arial', 18))
+
+        player_status.create_text(60, 60, text="Name:", fill="blue", font=('Arial', 16))
+        player_status.create_text(140, 60, text=self.name.split(" ")[0], fill="blue", font=('Arial', 16))
+
+        player_status.create_text(60, 80, text="Level:", fill="blue", font=('Arial', 16))
+        player_status.create_text(140, 80, text=str(self.level), fill="blue", font=('Arial', 16))
+
+        player_status.create_text(60, 100, text="Job:", fill="blue", font=('Arial', 16))
+        player_status.create_text(140, 100, text=self.job_class, fill="blue", font=('Arial', 16))
+
+        hp = str(self.health_bar)+"/"+str(self.base_hp)
+        player_status.create_text(60, 120, text="HP:", fill="blue", font=('Arial', 16))
+        player_status.create_text(140, 120, text=hp, fill="blue", font=('Arial', 16))
+
+        mp = str(self.mana_bar)+"/"+str(self.base_mp)
+        player_status.create_text(60, 140, text="MP:", fill="blue", font=('Arial', 16))
+        player_status.create_text(140, 140, text=mp, fill="blue", font=('Arial', 16))
+
         return player_status
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
