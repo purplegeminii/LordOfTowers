@@ -7,8 +7,10 @@ import timeit
 root = tk.Tk()
 root.geometry("600x600")  # Width x Height
 root.title("LOT")
-frame = tk.Frame(root, padx=10, pady=10)
-frame.grid()
+frame = tk.Frame(root, padx=10, pady=10, bg="black")
+frame.grid(row=0, column=0, sticky="nsew")
+root.grid_columnconfigure(0, weight=1)
+root.grid_rowconfigure(0, weight=1)
 
 
 # Create a label widget
@@ -51,6 +53,8 @@ def update_mana_bar() -> None:
 
 def show_player_status() -> None:
     print("Button Clicked!")
+    player_status_canvas = tk.Canvas(frame, width=200, height=300, bg="red")
+    player_status_canvas.place(x=200, y=200)
 
 buttonframe = tk.Frame(frame)
 buttonframe.columnconfigure(0, weight=1)
