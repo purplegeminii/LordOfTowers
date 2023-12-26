@@ -28,10 +28,10 @@ health_bar = hp_canvas.create_rectangle(0, 0, health_value * 2, 30, fill="green"
 
 def update_health_bar() -> None:
     global health_value, hp_canvas, health_bar
+    player1.health_bar = player1.health_bar - 40
     health_value = player1.health_bar/player1.base_hp * 100
     hp_canvas.delete(health_bar)
-    # to-do: remove the "-40"
-    health_bar = hp_canvas.create_rectangle(0, 0, (health_value-40) * 2, 30, fill="green")
+    health_bar = hp_canvas.create_rectangle(0, 0, (health_value) * 2, 30, fill="green")
 
 def greet() -> None:
     print("Button Clicked!")
