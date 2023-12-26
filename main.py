@@ -34,11 +34,11 @@ def update_health_bar() -> None:
     hp_canvas.delete(health_bar)
     health_bar = hp_canvas.create_rectangle(0, 0, (health_value) * 2, 30, fill="green")
 
-# Create a canvas to draw the health bar
+# Create a canvas to draw the mana bar
 mp_canvas = tk.Canvas(frame, width=200, height=30, bg="white")
 mp_canvas.grid(column=0, row=2)
 
-# Draw the health bar
+# Draw the mana bar
 mana_value = player1.mana_bar/player1.base_mp * 100
 mana_bar = mp_canvas.create_rectangle(0, 0, mana_value * 2, 30, fill="blue")
 
@@ -52,21 +52,27 @@ def update_mana_bar() -> None:
 def greet() -> None:
     print("Button Clicked!")
 
+buttonframe = tk.Frame(frame)
+buttonframe.columnconfigure(0, weight=1)
+buttonframe.columnconfigure(1, weight=1)
+
 # Create a button widget
-btn1 = tk.Button(frame, text="Button", command=greet)
-btn1.grid(column=0, row=3)
+btn1 = tk.Button(buttonframe, text="Button", command=greet)
+btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 
 # Quit btn
-quitbtn = tk.Button(frame, text="Quit", command=root.destroy)
-quitbtn.grid(column=1, row=3)
+quitbtn = tk.Button(buttonframe, text="Quit", command=root.destroy)
+quitbtn.grid(row=0, column=1, sticky=tk.W+tk.E)
 
 # Update health button
-update_hp_btn = tk.Button(frame, text="Update HP", command=update_health_bar)
-update_hp_btn.grid(column=0, row=4)
+update_hp_btn = tk.Button(buttonframe, text="Update HP", command=update_health_bar)
+update_hp_btn.grid(row=1, column=0, sticky=tk.W+tk.E)
 
 # Update mana button
-update_mp_btn = tk.Button(frame, text="Update MP", command=update_mana_bar)
-update_mp_btn.grid(column=1, row=4)
+update_mp_btn = tk.Button(buttonframe, text="Update MP", command=update_mana_bar)
+update_mp_btn.grid(row=1, column=1, sticky=tk.W+tk.E)
+
+buttonframe.grid(row=3, column=0)
 
 def main() -> None:
     print("""game start""")
