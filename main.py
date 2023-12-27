@@ -21,9 +21,15 @@ tk.Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
 player1 = Player(name="Delali Nsiah-Asare")
 print(player1)
 
+# HP and MP bars frame
+hp_mp_bars = tk.Frame(frame)
+hp_mp_bars.rowconfigure(0, weight=1)
+hp_mp_bars.rowconfigure(1, weight=1)
+hp_mp_bars.place(x=25, y=50)
+
 # Create a canvas to draw the health bar
-hp_canvas = tk.Canvas(frame, width=200, height=30, bg="red")
-hp_canvas.grid(column=0, row=1)
+hp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="red")
+hp_canvas.grid(row=0, column=0, sticky=tk.W+tk.E)
 
 # Draw the health bar
 health_value = player1.health_bar/player1.base_hp * 100
@@ -37,8 +43,8 @@ def update_health_bar() -> None:
     health_bar = hp_canvas.create_rectangle(0, 0, (health_value) * 2, 30, fill="green")
 
 # Create a canvas to draw the mana bar
-mp_canvas = tk.Canvas(frame, width=200, height=30, bg="white")
-mp_canvas.grid(column=0, row=2)
+mp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="white")
+mp_canvas.grid(row=1, column=0, sticky=tk.W+tk.E)
 
 # Draw the mana bar
 mana_value = player1.mana_bar/player1.base_mp * 100
@@ -62,6 +68,7 @@ def show_player_status() -> None:
 buttonframe = tk.Frame(frame)
 buttonframe.columnconfigure(0, weight=1)
 buttonframe.columnconfigure(1, weight=1)
+buttonframe.place(x=50, y=200)
 
 # Create a button widget
 btn1 = tk.Button(buttonframe, text="Status", command=show_player_status)
@@ -79,8 +86,6 @@ update_hp_btn.grid(row=1, column=0, sticky=tk.W+tk.E)
 update_mp_btn = tk.Button(buttonframe, text="Update MP", command=update_mana_bar)
 update_mp_btn.grid(row=1, column=1, sticky=tk.W+tk.E)
 
-# buttonframe.grid(row=3, column=0)
-buttonframe.place(x=50, y=200)
 
 def main() -> None:
     print("""game start""")
