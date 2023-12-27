@@ -19,7 +19,6 @@ tk.Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
 # Player object
 player1 = Player(name="Delali Nsiah-Asare")
 print(player1)
-print("\n")
 
 # Create a canvas to draw the health bar
 hp_canvas = tk.Canvas(frame, width=200, height=30, bg="red")
