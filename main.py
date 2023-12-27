@@ -58,6 +58,7 @@ def show_player_status() -> None:
     player_status_canvas.place(x=300, y=50)
     frame.after(5000, player_status_canvas.destroy)
 
+# button frame to hold the ff btn: [status, quit, update hp, update mp]
 buttonframe = tk.Frame(frame)
 buttonframe.columnconfigure(0, weight=1)
 buttonframe.columnconfigure(1, weight=1)
