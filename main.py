@@ -59,8 +59,8 @@ def show_player_status() -> None:
     frame.after(5000, player_status_canvas.destroy)
 
 buttonframe = tk.Frame(frame)
-buttonframe.columnconfigure(0, weight=1)
-buttonframe.columnconfigure(1, weight=1)
+buttonframe.columnconfigure(0, weight=1, pad=10)
+buttonframe.columnconfigure(1, weight=1, pad=10)
 
 # Create a button widget
 btn1 = tk.Button(buttonframe, text="Status", command=show_player_status)
