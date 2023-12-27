@@ -6,7 +6,7 @@ import time
 
 
 root = tk.Tk()
-root.geometry("600x600")  # Width x Height
+root.geometry("800x600")  # Width x Height
 root.title("LOT")
 frame = tk.Frame(root, padx=10, pady=10, bg="black")
 frame.grid(row=0, column=0, sticky="nsew")
