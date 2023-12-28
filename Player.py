@@ -39,8 +39,13 @@ class Player:
         self.base_hp = self.health_bar
         self.mana_bar = [x['init_mana'] for x in loaded_data if x['job_name']==self.job_class][0]
         self.base_mp = self.mana_bar
-        health_multiplier = 2/3
-        mana_multiplier = 3
+
+        health_growth_rate = 8
+        mana_growth_rate = 12
+
+        health_multiplier = 1 + (self.level * health_growth_rate / 100)
+        mana_multiplier = 1 + (self.level * mana_growth_rate / 100)
+
         self.combat_power = round(((health_multiplier)*(self.health_bar))+((mana_multiplier)*(self.mana_bar)), 2)
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
