@@ -62,6 +62,19 @@ class Player:
         hp_mp_bars = tk.Frame(frame)
         hp_mp_bars.rowconfigure(0, weight=1)
         hp_mp_bars.rowconfigure(1, weight=1)
+
+        hp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="red")
+        hp_canvas.grid(row=0, column=0, sticky=tk.W+tk.E)
+
+        health_value = self.health_bar/self.base_hp * 100
+        health_bar = hp_canvas.create_rectangle(0, 0, health_value * 2, 30, fill="green")
+
+        mp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="white")
+        mp_canvas.grid(row=1, column=0, sticky=tk.W+tk.E)
+
+        mana_value = self.mana_bar/self.base_mp * 100
+        mana_bar = mp_canvas.create_rectangle(0, 0, mana_value * 2, 30, fill="blue")
+
         pass
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
