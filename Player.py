@@ -16,6 +16,7 @@ def assign_job() -> str:
 
 @dataclass
 class Player:
+    
     name: str
     level: int = 1
     job_class: str = field(init=False, default_factory=assign_job)
@@ -56,6 +57,12 @@ class Player:
         player_status.create_text(140, 140, text=mp, fill="blue", font=('Arial', 16))
 
         return player_status
+    
+    def create_hp_mp_bars(self, frame: tk.Frame) -> tk.Frame:
+        hp_mp_bars = tk.Frame(frame)
+        hp_mp_bars.rowconfigure(0, weight=1)
+        hp_mp_bars.rowconfigure(1, weight=1)
+        pass
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
         if type_of_skill == "active":
