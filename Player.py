@@ -69,6 +69,9 @@ class Player:
         player_status.create_text(60, 140, text="MP:", fill="blue", font=('Arial', 16))
         player_status.create_text(140, 140, text=mp, fill="blue", font=('Arial', 16))
 
+        player_status.create_text(90, 180, text="Combat Power:", fill="blue", font=('Arial', 16))
+        player_status.create_text(100, 200, text=str(self.combat_power), fill="blue", font=('Arial', 16))
+
         return player_status
     
     def create_hp_mp_bars(self, frame: tk.Frame) -> None:
