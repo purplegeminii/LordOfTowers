@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import timeit
 import time
+from typing import Optional
 
 
 root = tk.Tk()
@@ -34,41 +35,53 @@ player2.create_hp_mp_bars(frame)
 hp_mp_bars2 = player2.hp_mp_bars
 hp_mp_bars2.place(x=530, y=50)
 
-def show_player_status() -> None:
+def show_player_status(player: Player) -> None:
     global frame
     print("Player Status window opened!")
-    player_status_canvas = player1.get_player_status(frame)
+    player_status_canvas = player.get_player_status(frame)
     player_status_canvas.place(x=280, y=50)
     frame.after(5000, player_status_canvas.destroy)
 
-def create_general_btns() -> tk.Frame:
+def create_general_btns(player: Player) -> tk.Frame:
+    global frame
     # general button frame to hold the ff btn: [status, quit]
     buttonframe = tk.Frame(frame)
     buttonframe.columnconfigure(0, weight=1)
     buttonframe.columnconfigure(1, weight=1)
     # Create a button widget
-    pl_status = tk.Button(buttonframe, text="Status", command=show_player_status)
+    pl_status = tk.Button(buttonframe, text="Status", command=lambda: show_player_status(player))
     pl_status.grid(row=0, column=0, sticky=tk.W+tk.E)
     return buttonframe
 
-# general button frame to hold the ff btn: [status, quit]
-generalbuttonframe1 = create_general_btns()
+# general button frame
+generalbuttonframe1 = create_general_btns(player1)
 generalbuttonframe1.place(x=50, y=200)
 
+generalbuttonframe2 = create_general_btns(player2)
+generalbuttonframe2.place(x=530, y=200)
 
-# Active skills button frame
-active_skill_btns = tk.Frame(frame)
-active_skill_btns.rowconfigure(0, weight=1)
-active_skill_btns.place(x=50, y=250)
 
-warrior_btn = tk.Button(active_skill_btns, text="slash", command=lambda: player1.use_skill("slash", player2))
-warrior_btn.grid(row=0, column=0, sticky=tk.W+tk.E)
+def create_skills_btns(current_player: Player, enemy_player: Player) -> tk.Frame:
+    global frame
+    # Active skills button frame
+    active_skill_btns = tk.Frame(frame)
+    active_skill_btns.rowconfigure(0, weight=1)
+    # warrior
+    warrior_btn = tk.Button(active_skill_btns, text="slash", command=lambda: current_player.use_skill("slash", enemy_player))
+    warrior_btn.grid(row=0, column=0, sticky=tk.W+tk.E)
+    # assasin
+    assasin_btn = tk.Button(active_skill_btns, text="stab", command=lambda: current_player.use_skill("stab", enemy_player))
+    assasin_btn.grid(row=0, column=1, sticky=tk.W+tk.E)
+    # mage
+    mage_btn = tk.Button(active_skill_btns, text="fireball", command=lambda: current_player.use_skill("fireball", enemy_player))
+    mage_btn.grid(row=0, column=2, sticky=tk.W+tk.E)
+    return active_skill_btns
 
-assasin_btn = tk.Button(active_skill_btns, text="stab", command=lambda: player1.use_skill("stab", player2))
-assasin_btn.grid(row=0, column=1, sticky=tk.W+tk.E)
+active_skills_1 = create_skills_btns(player1, player2)
+active_skills_1.place(x=50, y=250)
 
-mage_btn = tk.Button(active_skill_btns, text="fireball", command=lambda: player1.use_skill("fireball", player2))
-mage_btn.grid(row=0, column=2, sticky=tk.W+tk.E)
+active_skills_2 = create_skills_btns(player2, player1)
+active_skills_2.place(x=530, y=250)
 
 
 def main() -> None:

@@ -34,8 +34,6 @@ class Player:
     mana_value: float = field(init=False, repr=False)
     mana_bar_gui: int = field(init=False, repr=False)
 
-    current_enemy: Optional['Player'] = field(init=False, repr=False)
-
     def __post_init__(self):
         self.health_bar = [x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0]
         self.base_hp = self.health_bar
@@ -107,9 +105,6 @@ class Player:
         self.mp_canvas.delete(self.mana_bar_gui)
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
         print("player class method: update MP")
-
-    def set_current_enemy(self, current_enemy: Optional['Player']):
-        self.current_enemy = current_enemy
 
     def receive_damage(self, damage: float) -> None:
         self.health_bar -= damage
