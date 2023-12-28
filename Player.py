@@ -93,14 +93,12 @@ class Player:
 
     
     def update_health_bar(self) -> None:
-        # self.health_bar -= 40
         self.health_value = self.health_bar/self.base_hp * 100
         self.hp_canvas.delete(self.health_bar_gui)
         self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, (self.health_value) * 2, 30, fill="green")
         print("player class method: update HP")
 
     def update_mana_bar(self) -> None:
-        # self.mana_bar -= 40
         self.mana_value = self.mana_bar/self.base_mp * 100
         self.mp_canvas.delete(self.mana_bar_gui)
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
