@@ -75,7 +75,7 @@ class Player:
         mana_value = self.mana_bar/self.base_mp * 100
         mana_bar = mp_canvas.create_rectangle(0, 0, mana_value * 2, 30, fill="blue")
 
-        pass
+        return hp_mp_bars
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
         if type_of_skill == "active":
