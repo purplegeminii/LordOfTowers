@@ -10,7 +10,7 @@ root.geometry("800x600")  # Width x Height
 root.title("LOT")
 frame = tk.Frame(root, padx=10, pady=10, bg="black")
 frame.grid(row=0, column=0, sticky="nsew")
-frame_width, frame_height = frame.winfo_width, frame.winfo_height
+frame_width, frame_height = frame.winfo_width(), frame.winfo_height()
 root.grid_columnconfigure(0, weight=1)
 root.grid_rowconfigure(0, weight=1)
 
