@@ -2,12 +2,12 @@ import os
 import random
 import json
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List, Optional, Dict
 import tkinter as tk
 
 
 data = open(os.path.join("Asserts/Data", "job_class.json"))
-loaded_data = json.load(data)
+loaded_data: List[Dict] = json.load(data)
 jobs: List[str] = [job['job_name'] for job in loaded_data]
 
 def assign_job() -> str:
@@ -33,6 +33,8 @@ class Player:
     mp_canvas: tk.Canvas = field(init=False, repr=False)
     mana_value: float = field(init=False, repr=False)
     mana_bar_gui: int = field(init=False, repr=False)
+
+    current_enemy: Optional['Player'] = field(init=False, repr=False)
 
     def __post_init__(self):
         self.health_bar = [x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0]
@@ -93,19 +95,62 @@ class Player:
 
     
     def update_health_bar(self) -> None:
-        self.health_bar -= 40
+        # self.health_bar -= 40
         self.health_value = self.health_bar/self.base_hp * 100
         self.hp_canvas.delete(self.health_bar_gui)
         self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, (self.health_value) * 2, 30, fill="green")
         print("player class method: update HP")
 
     def update_mana_bar(self) -> None:
-        self.mana_bar -= 40
+        # self.mana_bar -= 40
         self.mana_value = self.mana_bar/self.base_mp * 100
         self.mp_canvas.delete(self.mana_bar_gui)
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
         print("player class method: update MP")
 
-    def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
-        if type_of_skill == "active":
-            pass
+    def set_current_enemy(self, current_enemy: Optional['Player']):
+        self.current_enemy = current_enemy
+
+    def receive_damage(self, damage: float) -> None:
+        self.health_bar -= damage
+        self.update_health_bar()
+        print(f"{self.name} received {damage} damage!")
+
+    def use_skill(self, name_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
+        # Check if the skill exists in the loaded_data
+        skill_exists = any(
+            job.get('job_name') == self.job_class and any(skill['skill_name'] == name_of_skill for skill in job['active_skill'] + job['passive_skill'])
+            for job in loaded_data
+        )
+
+        if skill_exists:
+            # Find the skill within the loaded_data for the player's job class
+            job_skills = next(job for job in loaded_data if job['job_name'] == self.job_class)
+            skill = next((s for s in job_skills['active_skill'] + job_skills['passive_skill'] if s['skill_name'] == name_of_skill), None)
+
+            if skill:
+                print("player class method: use_skill")
+                # Determine if the skill is active or passive
+                is_active = skill['skill_type'] == 'active'
+
+                # Perform actions based on whether the skill is active or passive
+                if is_active:
+                    # Placeholder logic for an active skill
+                    if enemy_player:
+                        # Placeholder damage calculation for demonstration purposes
+                        damage = int(eval(skill['skill_damage'].format(skill_level=skill['skill_level'])))
+                        mana_cost = int(eval(skill['skill_mana_cost'].format(skill_level=skill['skill_level'])))
+                        # Check if the player has enough mana to use the skill
+                        if self.mana_bar >= mana_cost:
+                            self.mana_bar -= mana_cost
+                            print(f"{mana_cost} mana used to activate {name_of_skill} skill")
+                            self.update_mana_bar()
+                            enemy_player.receive_damage(damage)
+                            print(f"{self.name} used {name_of_skill} on {enemy_player.name}!")
+
+                        else:
+                            print(f"{self.name} doesn't have enough mana to use {name_of_skill}!")
+
+                else:
+                    # Placeholder logic for a passive skill (if any)
+                    print(f"{self.name} used {name_of_skill} (passive skill)!")

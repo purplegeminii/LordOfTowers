@@ -21,18 +21,24 @@ welcome_lbl.grid(column=0, row=0)
 
 # Player object
 player1 = Player(name="Delali Nsiah-Asare")
+player2 = Player(name="ENEMY PLAYER")
 print(player1)
+print(player2)
 
 # HP and MP bars frame
 player1.create_hp_mp_bars(frame)
 hp_mp_bars = player1.hp_mp_bars
 hp_mp_bars.place(x=25, y=50)
 
+player2.create_hp_mp_bars(frame)
+hp_mp_bars2 = player2.hp_mp_bars
+hp_mp_bars2.place(x=530, y=50)
+
 def show_player_status() -> None:
     global frame
     print("Player Status window opened!")
     player_status_canvas = player1.get_player_status(frame)
-    player_status_canvas.place(x=300, y=50)
+    player_status_canvas.place(x=280, y=50)
     frame.after(5000, player_status_canvas.destroy)
 
 # button frame to hold the ff btn: [status, quit, update hp, update mp]
@@ -49,13 +55,20 @@ btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 quitbtn = tk.Button(buttonframe, text="Quit", command=root.destroy)
 quitbtn.grid(row=0, column=1, sticky=tk.W+tk.E)
 
-# Update health button
-update_hp_btn = tk.Button(buttonframe, text="Update HP", command=player1.update_health_bar)
-update_hp_btn.grid(row=1, column=0, sticky=tk.W+tk.E)
 
-# Update mana button
-update_mp_btn = tk.Button(buttonframe, text="Update MP", command=player1.update_mana_bar)
-update_mp_btn.grid(row=1, column=1, sticky=tk.W+tk.E)
+# Active skills button frame
+active_skill_btns = tk.Frame(frame)
+active_skill_btns.rowconfigure(0, weight=1)
+active_skill_btns.place(x=50, y=250)
+
+warrior_btn = tk.Button(active_skill_btns, text="slash", command=lambda: player1.use_skill("slash", player2))
+warrior_btn.grid(row=0, column=0, sticky=tk.W+tk.E)
+
+assasin_btn = tk.Button(active_skill_btns, text="stab", command=lambda: player1.use_skill("stab", player2))
+assasin_btn.grid(row=0, column=1, sticky=tk.W+tk.E)
+
+mage_btn = tk.Button(active_skill_btns, text="fireball", command=lambda: player1.use_skill("fireball", player2))
+mage_btn.grid(row=0, column=2, sticky=tk.W+tk.E)
 
 
 def main() -> None:
