@@ -24,40 +24,9 @@ player1 = Player(name="Delali Nsiah-Asare")
 print(player1)
 
 # HP and MP bars frame
-hp_mp_bars = tk.Frame(frame)
-hp_mp_bars.rowconfigure(0, weight=1)
-hp_mp_bars.rowconfigure(1, weight=1)
+player1.create_hp_mp_bars(frame)
+hp_mp_bars = player1.hp_mp_bars
 hp_mp_bars.place(x=25, y=50)
-
-# Create a canvas to draw the health bar
-hp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="red")
-hp_canvas.grid(row=0, column=0, sticky=tk.W+tk.E)
-
-# Draw the health bar
-health_value = player1.health_bar/player1.base_hp * 100
-health_bar = hp_canvas.create_rectangle(0, 0, health_value * 2, 30, fill="green")
-
-def update_health_bar() -> None:
-    global health_value, hp_canvas, health_bar
-    player1.health_bar = player1.health_bar - 40
-    health_value = player1.health_bar/player1.base_hp * 100
-    hp_canvas.delete(health_bar)
-    health_bar = hp_canvas.create_rectangle(0, 0, (health_value) * 2, 30, fill="green")
-
-# Create a canvas to draw the mana bar
-mp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="white")
-mp_canvas.grid(row=1, column=0, sticky=tk.W+tk.E)
-
-# Draw the mana bar
-mana_value = player1.mana_bar/player1.base_mp * 100
-mana_bar = mp_canvas.create_rectangle(0, 0, mana_value * 2, 30, fill="blue")
-
-def update_mana_bar() -> None:
-    global mana_value, mp_canvas, mana_bar
-    player1.mana_bar = player1.mana_bar - 40
-    mana_value = player1.mana_bar/player1.base_mp * 100
-    mp_canvas.delete(mana_bar)
-    mana_bar = mp_canvas.create_rectangle(0, 0, (mana_value) * 2, 30, fill="blue")
 
 def show_player_status() -> None:
     global frame
@@ -81,11 +50,11 @@ quitbtn = tk.Button(buttonframe, text="Quit", command=root.destroy)
 quitbtn.grid(row=0, column=1, sticky=tk.W+tk.E)
 
 # Update health button
-update_hp_btn = tk.Button(buttonframe, text="Update HP", command=update_health_bar)
+update_hp_btn = tk.Button(buttonframe, text="Update HP", command=player1.update_health_bar)
 update_hp_btn.grid(row=1, column=0, sticky=tk.W+tk.E)
 
 # Update mana button
-update_mp_btn = tk.Button(buttonframe, text="Update MP", command=update_mana_bar)
+update_mp_btn = tk.Button(buttonframe, text="Update MP", command=player1.update_mana_bar)
 update_mp_btn.grid(row=1, column=1, sticky=tk.W+tk.E)
 
 

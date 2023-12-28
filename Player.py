@@ -26,6 +26,14 @@ class Player:
     base_mp: float = field(init=False)
     combat_power: float = field(init=False)
 
+    hp_mp_bars: tk.Frame = field(init=False, repr=False)
+    hp_canvas: tk.Canvas = field(init=False, repr=False)
+    health_value: float = field(init=False, repr=False)
+    health_bar_gui: int = field(init=False, repr=False)
+    mp_canvas: tk.Canvas = field(init=False, repr=False)
+    mana_value: float = field(init=False, repr=False)
+    mana_bar_gui: int = field(init=False, repr=False)
+
     def __post_init__(self):
         self.health_bar = [x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0]
         self.base_hp = self.health_bar
@@ -58,24 +66,37 @@ class Player:
 
         return player_status
     
-    def create_hp_mp_bars(self, frame: tk.Frame) -> tk.Frame:
-        hp_mp_bars = tk.Frame(frame)
-        hp_mp_bars.rowconfigure(0, weight=1)
-        hp_mp_bars.rowconfigure(1, weight=1)
+    def create_hp_mp_bars(self, frame: tk.Frame) -> None:
+        self.hp_mp_bars = tk.Frame(frame)
+        self.hp_mp_bars.rowconfigure(0, weight=1)
+        self.hp_mp_bars.rowconfigure(1, weight=1)
 
-        hp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="red")
-        hp_canvas.grid(row=0, column=0, sticky=tk.W+tk.E)
+        self.hp_canvas = tk.Canvas(self.hp_mp_bars, width=200, height=30, bg="red")
+        self.hp_canvas.grid(row=0, column=0, sticky=tk.W+tk.E)
 
-        health_value = self.health_bar/self.base_hp * 100
-        health_bar = hp_canvas.create_rectangle(0, 0, health_value * 2, 30, fill="green")
+        self.health_value = self.health_bar/self.base_hp * 100
+        self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, self.health_value * 2, 30, fill="green")
 
-        mp_canvas = tk.Canvas(hp_mp_bars, width=200, height=30, bg="white")
-        mp_canvas.grid(row=1, column=0, sticky=tk.W+tk.E)
+        self.mp_canvas = tk.Canvas(self.hp_mp_bars, width=200, height=30, bg="white")
+        self.mp_canvas.grid(row=1, column=0, sticky=tk.W+tk.E)
 
-        mana_value = self.mana_bar/self.base_mp * 100
-        mana_bar = mp_canvas.create_rectangle(0, 0, mana_value * 2, 30, fill="blue")
+        self.mana_value = self.mana_bar/self.base_mp * 100
+        self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, self.mana_value * 2, 30, fill="blue")
 
-        return hp_mp_bars
+    
+    def update_health_bar(self) -> None:
+        self.health_bar -= 40
+        self.health_value = self.health_bar/self.base_hp * 100
+        self.hp_canvas.delete(self.health_bar_gui)
+        self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, (self.health_value) * 2, 30, fill="green")
+        print("player class method: update HP")
+
+    def update_mana_bar(self) -> None:
+        self.mana_bar -= 40
+        self.mana_value = self.mana_bar/self.base_mp * 100
+        self.mp_canvas.delete(self.mana_bar_gui)
+        self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
+        print("player class method: update MP")
 
     def use_skill(self, type_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
         if type_of_skill == "active":
