@@ -15,7 +15,8 @@ root.grid_rowconfigure(0, weight=1)
 
 
 # Create a label widget
-tk.Label(frame, text="Welcome to Lord Of Towers!").grid(column=0, row=0)
+welcome_lbl = tk.Label(frame, text="Welcome to Lord Of Towers!")
+welcome_lbl.grid(column=0, row=0)
 
 # Player object
 player1 = Player(name="Delali Nsiah-Asare")
