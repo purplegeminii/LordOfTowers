@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import ttk
 import timeit
 import time
-from typing import Optional
 
 
 root = tk.Tk()
