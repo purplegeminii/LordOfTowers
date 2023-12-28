@@ -41,19 +41,19 @@ def show_player_status() -> None:
     player_status_canvas.place(x=280, y=50)
     frame.after(5000, player_status_canvas.destroy)
 
-# button frame to hold the ff btn: [status, quit]
-buttonframe = tk.Frame(frame)
-buttonframe.columnconfigure(0, weight=1)
-buttonframe.columnconfigure(1, weight=1)
-buttonframe.place(x=50, y=200)
+def create_general_btns() -> tk.Frame:
+    # general button frame to hold the ff btn: [status, quit]
+    buttonframe = tk.Frame(frame)
+    buttonframe.columnconfigure(0, weight=1)
+    buttonframe.columnconfigure(1, weight=1)
+    # Create a button widget
+    pl_status = tk.Button(buttonframe, text="Status", command=show_player_status)
+    pl_status.grid(row=0, column=0, sticky=tk.W+tk.E)
+    return buttonframe
 
-# Create a button widget
-btn1 = tk.Button(buttonframe, text="Status", command=show_player_status)
-btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
-
-# Quit btn
-quitbtn = tk.Button(buttonframe, text="Quit", command=root.destroy)
-quitbtn.grid(row=0, column=1, sticky=tk.W+tk.E)
+# general button frame to hold the ff btn: [status, quit]
+generalbuttonframe1 = create_general_btns()
+generalbuttonframe1.place(x=50, y=200)
 
 
 # Active skills button frame
