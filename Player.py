@@ -13,6 +13,17 @@ jobs: List[str] = [job['job_name'] for job in loaded_data]
 def assign_job() -> str:
     return "".join(random.choice(jobs))
 
+def assign_random_multiplier() -> float:
+    multipliers = [1.0, 1.1, 1.2, 1.3, 1.4]
+    weights = [20, 30, 25, 15, 10]  # Adjust these weights based on the desired probability
+
+    # Ensure the sum of weights is equal to 100 or use total sum as the reference
+    total_weight = sum(weights)
+    normalized_weights = [weight / total_weight for weight in weights]
+
+    chosen_multiplier = random.choices(multipliers, weights=normalized_weights, k=1)
+    return chosen_multiplier[0]
+
 
 @dataclass
 class Player:
@@ -35,9 +46,9 @@ class Player:
     mana_bar_gui: int = field(init=False, repr=False)
 
     def __post_init__(self):
-        self.health_bar = [x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0]
+        self.health_bar = round([x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0] * assign_random_multiplier())
         self.base_hp = self.health_bar
-        self.mana_bar = [x['init_mana'] for x in loaded_data if x['job_name']==self.job_class][0]
+        self.mana_bar = round([x['init_mana'] for x in loaded_data if x['job_name']==self.job_class][0] * assign_random_multiplier())
         self.base_mp = self.mana_bar
 
         health_growth_rate = 8
