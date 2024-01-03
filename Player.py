@@ -109,20 +109,20 @@ class Player:
         self.health_value = self.health_bar/self.base_hp * 100
         self.hp_canvas.delete(self.health_bar_gui)
         self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, (self.health_value) * 2, 30, fill="green")
-        print("player class method: update HP")
+        print(f"{self.__class__.__name__} class method: update HP")
 
     def update_mana_bar(self) -> None:
         self.mana_value = self.mana_bar/self.base_mp * 100
         self.mp_canvas.delete(self.mana_bar_gui)
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
-        print("player class method: update MP")
+        print(f"{self.__class__.__name__} class method: update MP")
 
     def auto_regen_mp(self, mana_regen_rate: int = 50) -> None:
         # Assuming a mana regeneration rate of 50 units per 10 seconds
         regen_interval_ms = 10000  # Milliseconds (10 sec)
 
         if self.mana_bar < self.base_mp:
-            print("player class method: auto_regen_mp")
+            print(f"{self.__class__.__name__} class method: auto_regen_mp")
             self.mana_bar = min(self.mana_bar + mana_regen_rate, self.base_mp)
             self.update_mana_bar()  # Update the mana bar GUI here
         
@@ -147,7 +147,7 @@ class Player:
             skill = next((s for s in job_skills['active_skill'] + job_skills['passive_skill'] if s['skill_name'] == name_of_skill), None)
 
             if skill:
-                print("player class method: use_skill")
+                print(f"{self.__class__.__name__} class method: use_skill")
                 # Determine if the skill is active or passive
                 is_active = skill['skill_type'] == 'active'
 
