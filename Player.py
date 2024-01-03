@@ -14,8 +14,8 @@ def assign_job() -> str:
     return "".join(random.choice(jobs))
 
 def assign_random_multiplier() -> float:
-    multipliers = [1.0, 1.1, 1.2, 1.3, 1.4]
-    weights = [20, 30, 25, 15, 10]  # Adjust these weights based on the desired probability
+    multipliers = [1.0, 1.1, 1.2, 1.3]
+    weights = [20, 30, 25, 25]  # Adjust these weights based on the desired probability
 
     # Ensure the sum of weights is equal to 100 or use total sum as the reference
     total_weight = sum(weights)
