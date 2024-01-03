@@ -82,7 +82,7 @@ active_skills_2.place(x=530, y=250)
 
 
 def main() -> None:
-    print("""game start""")
+    print("""GAME START""")
     print(player1)
     print(player2)
     root.mainloop()
