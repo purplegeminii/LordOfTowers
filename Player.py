@@ -102,6 +102,8 @@ class Player:
         self.mana_value = self.mana_bar/self.base_mp * 100
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, self.mana_value * 2, 30, fill="blue")
 
+        self.auto_regen_mp()
+
     
     def update_health_bar(self) -> None:
         self.health_value = self.health_bar/self.base_hp * 100
@@ -114,6 +116,18 @@ class Player:
         self.mp_canvas.delete(self.mana_bar_gui)
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
         print("player class method: update MP")
+
+    def auto_regen_mp(self) -> None:
+        # Assuming a mana regeneration rate of 50 units per 10 seconds
+        mana_regen_rate = 50
+        regen_interval_ms = 10000  # Milliseconds (10 sec)
+
+        if self.mana_bar < self.base_mp:
+            self.mana_bar = min(self.mana_bar + mana_regen_rate, self.base_mp)
+            self.update_mana_bar()  # Update the mana bar GUI here
+        
+        # Schedule the next regeneration
+        self.hp_mp_bars.after(regen_interval_ms, self.auto_regen_mp)
 
     def receive_damage(self, damage: float) -> None:
         self.health_bar -= damage
