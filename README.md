@@ -7,3 +7,5 @@
  This python project is meant to gamify my learning of python language.
 
 # topics includes: dataclasses, json ...
+
+ run the main.py file
