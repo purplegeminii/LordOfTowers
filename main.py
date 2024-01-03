@@ -22,8 +22,6 @@ welcome_lbl.grid(column=0, row=0)
 # Player object
 player1 = Player(name="Delali Nsiah-Asare")
 player2 = Player(name="ENEMY PLAYER")
-print(player1)
-print(player2)
 
 # HP and MP bars frame
 player1.create_hp_mp_bars(frame)
@@ -85,6 +83,8 @@ active_skills_2.place(x=530, y=250)
 
 def main() -> None:
     print("""game start""")
+    print(player1)
+    print(player2)
     root.mainloop()
 
 if __name__ == "__main__":
