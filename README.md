@@ -9,4 +9,5 @@
 # topics includes: dataclasses, json ...
 
  run the main.py file
+ 
  there are 3 buttons: "slash", "stab" and "fireball", corresponding to the respective Player job classes: Warrior, Assasin and Mage
