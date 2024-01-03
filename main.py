@@ -43,7 +43,7 @@ def show_player_status(player: Player) -> None:
 
 def create_general_btns(player: Player) -> tk.Frame:
     global frame
-    # general button frame to hold the ff btn: [status, quit]
+    # general button frame to hold the ff btn: [status, ...]
     buttonframe = tk.Frame(frame)
     buttonframe.columnconfigure(0, weight=1)
     buttonframe.columnconfigure(1, weight=1)
