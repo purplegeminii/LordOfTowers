@@ -14,8 +14,8 @@ def assign_job() -> str:
     return "".join(random.choice(jobs))
 
 def assign_random_multiplier() -> float:
-    multipliers = [1.0, 1.1, 1.2, 1.3]
-    weights = [20, 30, 25, 25]  # Adjust these weights based on the desired probability
+    multipliers = [1.0, 1.1, 1.2, 1.3, 2.0]
+    weights = [20, 31, 23, 25, 1]  # Adjust these weights based on the desired probability
 
     # Ensure the sum of weights is equal to 100 or use total sum as the reference
     total_weight = sum(weights)
@@ -117,17 +117,17 @@ class Player:
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
         print("player class method: update MP")
 
-    def auto_regen_mp(self) -> None:
+    def auto_regen_mp(self, mana_regen_rate: int = 50) -> None:
         # Assuming a mana regeneration rate of 50 units per 10 seconds
-        mana_regen_rate = 50
         regen_interval_ms = 10000  # Milliseconds (10 sec)
 
         if self.mana_bar < self.base_mp:
+            print("player class method: auto_regen_mp")
             self.mana_bar = min(self.mana_bar + mana_regen_rate, self.base_mp)
             self.update_mana_bar()  # Update the mana bar GUI here
         
         # Schedule the next regeneration
-        self.hp_mp_bars.after(regen_interval_ms, self.auto_regen_mp)
+        self.hp_mp_bars.after(regen_interval_ms, lambda: self.auto_regen_mp(mana_regen_rate))
 
     def receive_damage(self, damage: float) -> None:
         self.health_bar -= damage
