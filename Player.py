@@ -129,6 +129,16 @@ class Player:
         print(f"{self.__class__.__name__} class method: level up to {self.level}")
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
+        """
+        returns a tkinter canvas that includes the player's
+        name, level, hp, mp and combat power.
+
+        Args:
+        - frame (tk.Frame): the tkinter frame from the main file
+
+        Returns:
+        - tk.Canvas: a tkinter canvas
+        """
         player_status = tk.Canvas(frame, width=200, height=300, bg="red")
         player_status.create_text(100, 30, text="Player Status", fill="blue", font=('Arial', 18))
 
