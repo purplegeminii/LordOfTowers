@@ -27,9 +27,9 @@ def assign_random_multiplier() -> float:
 def assign_mana_regen_rate(job_name: Optional[str]) -> Tuple[int, int]:
     # Implement this function to assign mana regeneration rates based on job_name
     if job_name == 'Mage':
-        return 70, 10000  # Example mana regeneration rate for Mage
+        return 60, 10000  # Example mana regeneration rate for Mage
     elif job_name == 'Assassin':
-        return 60, 10000  # Example mana regeneration rate for Assassin
+        return 70, 10000  # Example mana regeneration rate for Assassin
     elif job_name == 'Warrior':
         return 50, 10000  # Example mana regeneration rate for Warrior
     else:
