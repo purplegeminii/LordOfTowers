@@ -117,6 +117,7 @@ class Player:
 
         # Update mana regeneration rate and interval based on the new job class
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
+        print(f"{self.__class__.__name__} class method: level up")
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
         player_status = tk.Canvas(frame, width=200, height=300, bg="red")
