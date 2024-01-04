@@ -11,7 +11,16 @@ loaded_data: List[Dict] = json.load(data)
 jobs: List[str] = [job['job_name'] for job in loaded_data]
 
 def assign_job() -> str:
-    return "".join(random.choice(jobs))
+    global jobs
+    job_names = jobs+["no class"]
+    weights = [30, 30, 30, 10]  # Adjust these weights based on the desired probability
+
+    # Ensure the sum of weights is equal to 100 or use total sum as the reference
+    total_weight = sum(weights)
+    normalized_weights = [weight / total_weight for weight in weights]
+
+    chosen_job = random.choices(job_names, weights=normalized_weights, k=1)
+    return chosen_job[0]
 
 def assign_random_multiplier() -> float:
     multipliers = [1.0, 1.1, 1.2, 1.3, 2.0]
