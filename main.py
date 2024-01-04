@@ -48,6 +48,9 @@ def create_general_btns(player: Player) -> tk.Frame:
     # Create a button widget
     pl_status = tk.Button(buttonframe, text="Status", command=lambda: show_player_status(player))
     pl_status.grid(row=0, column=0, sticky=tk.W+tk.E)
+    # level up button
+    lvl_up_btn = tk.Button(buttonframe, text="Level Up", command=player.level_up)
+    lvl_up_btn.grid(row=0, column=1, sticky=tk.W+tk.E)
     return buttonframe
 
 # general button frame

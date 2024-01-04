@@ -106,11 +106,9 @@ class Player:
         mana_multiplier = 1 + (self.level * self.mana_growth_rate / 100)
 
         # Update health and mana bars
-        self.base_hp = round([x['init_health'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
         self.health_bar = round(self.base_hp * health_multiplier)
         self.base_hp = self.health_bar
 
-        self.base_mp = round([x['init_mana'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
         self.mana_bar = round(self.base_mp * mana_multiplier)
         self.base_mp = self.mana_bar
 
