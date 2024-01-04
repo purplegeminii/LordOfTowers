@@ -24,6 +24,17 @@ def assign_random_multiplier() -> float:
     chosen_multiplier = random.choices(multipliers, weights=normalized_weights, k=1)
     return chosen_multiplier[0]
 
+def assign_mana_regen_rate(job_name: str) -> Optional[int]:
+    # Implement this function to assign mana regeneration rates based on job_name
+    if job_name == 'Mage':
+        return 70  # Example mana regeneration rate for Mage
+    elif job_name == 'Assassin':
+        return 60  # Example mana regeneration rate for Assassin
+    elif job_name == 'Warrior':
+        return 50  # Example mana regeneration rate for Warrior
+    else:
+        return None  # Return None or default value if job_name doesn't match any class
+
 
 @dataclass
 class Player:
@@ -45,6 +56,8 @@ class Player:
     mana_value: float = field(init=False, repr=False)
     mana_bar_gui: int = field(init=False, repr=False)
 
+    mana_regen_rate: int = field(init=False)
+
     def __post_init__(self):
         self.health_bar = round([x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0] * assign_random_multiplier())
         self.base_hp = self.health_bar
@@ -58,6 +71,8 @@ class Player:
         mana_multiplier = 1 + (self.level * mana_growth_rate / 100)
 
         self.combat_power = round(((health_multiplier)*(self.health_bar))+((mana_multiplier)*(self.mana_bar)), 2)
+
+        self.mana_regen_rate = assign_mana_regen_rate(self.job_class)
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
         player_status = tk.Canvas(frame, width=200, height=300, bg="red")
@@ -102,7 +117,7 @@ class Player:
         self.mana_value = self.mana_bar/self.base_mp * 100
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, self.mana_value * 2, 30, fill="blue")
 
-        self.auto_regen_mp()
+        self.auto_regen_mp(self.mana_regen_rate)
 
     
     def update_health_bar(self) -> None:
@@ -117,9 +132,9 @@ class Player:
         self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
         print(f"{self.__class__.__name__} class method: update MP")
 
-    def auto_regen_mp(self, mana_regen_rate: int = 50) -> None:
+    def auto_regen_mp(self, mana_regen_rate: int) -> None:
         # Assuming a mana regeneration rate of 50 units per 10 seconds
-        regen_interval_ms = 10000  # Milliseconds (10 sec)
+        regen_interval_ms = 10000  # Milliseconds (10 seconds)
 
         if self.mana_bar < self.base_mp:
             print(f"{self.__class__.__name__} class method: auto_regen_mp")
