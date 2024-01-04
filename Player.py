@@ -12,14 +12,13 @@ jobs: List[str] = [job['job_name'] for job in loaded_data]
 
 def assign_job() -> str:
     global jobs
-    job_names = jobs+["no class"]
     weights = [30, 30, 30, 10]  # Adjust these weights based on the desired probability
 
     # Ensure the sum of weights is equal to 100 or use total sum as the reference
     total_weight = sum(weights)
     normalized_weights = [weight / total_weight for weight in weights]
 
-    chosen_job = random.choices(job_names, weights=normalized_weights, k=1)
+    chosen_job = random.choices(jobs, weights=normalized_weights, k=1)
     return chosen_job[0]
 
 def assign_random_multiplier() -> float:
@@ -33,17 +32,28 @@ def assign_random_multiplier() -> float:
     chosen_multiplier = random.choices(multipliers, weights=normalized_weights, k=1)
     return chosen_multiplier[0]
 
-def assign_mana_regen_rate(job_name: Optional[str]) -> Tuple[int, int]:
+def assign_mana_regen_rate(job_name: str, player_lvl: int) -> Tuple[int, int]:
     # Implement this function based on job_name
     # returns mana_regen_rate and regen_interval_ms
+    multiplier = 1 + (0.1 * player_lvl)/2
     if job_name == 'Mage':
-        return 60, 12000  # Example mana regeneration rate for Mage
+        return 60*multiplier, 12000  # Example mana regeneration rate for Mage
     elif job_name == 'Assassin':
-        return 70, 10000  # Example mana regeneration rate for Assassin
+        return 70*multiplier, 10000  # Example mana regeneration rate for Assassin
     elif job_name == 'Warrior':
-        return 50, 15000  # Example mana regeneration rate for Warrior
-    else:
-        return 30, 5000  # Return default value if job_name doesn't match any class
+        return 50*multiplier, 15000  # Example mana regeneration rate for Warrior
+    elif job_name == "no class":
+        return 30*multiplier, 5000  # Return default value if job_name doesn't match any class
+    
+def assign_hp_mp_growth_rate(job_name: str) -> Tuple[int, int]:
+    if job_name == 'Mage':
+        return 6, 10
+    elif job_name == 'Assassin':
+        return 7, 11
+    elif job_name == 'Warrior':
+        return 5, 9
+    elif job_name == "no class":
+        return 4, 12
 
 
 @dataclass
@@ -69,21 +79,46 @@ class Player:
     mana_regen_rate: int = field(init=False, repr=False)
     regen_interval_ms: int = field(init=False, repr=False)
 
+    health_growth_rate: int = field(init=False, repr=False)
+    mana_growth_rate: int = field(init=False, repr=False)
+
     def __post_init__(self):
-        self.health_bar = round([x['init_health'] for x in loaded_data if x['job_name']==self.job_class][0] * assign_random_multiplier())
+        self.health_growth_rate, self.mana_growth_rate = assign_hp_mp_growth_rate(self.job_class)
+
+        health_multiplier = 1 + (self.level * self.health_growth_rate / 100)
+        mana_multiplier = 1 + (self.level * self.mana_growth_rate / 100)
+
+        self.base_hp = round([x['init_health'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
+        self.health_bar = round(self.base_hp * health_multiplier)
         self.base_hp = self.health_bar
-        self.mana_bar = round([x['init_mana'] for x in loaded_data if x['job_name']==self.job_class][0] * assign_random_multiplier())
+
+        self.base_mp = round([x['init_mana'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
+        self.mana_bar = round(self.base_mp * mana_multiplier)
         self.base_mp = self.mana_bar
 
-        health_growth_rate = 8
-        mana_growth_rate = 12
+        self.combat_power = round((self.health_bar) + (self.mana_bar), 2)
+        self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
 
-        health_multiplier = 1 + (self.level * health_growth_rate / 100)
-        mana_multiplier = 1 + (self.level * mana_growth_rate / 100)
+    def level_up(self) -> None:
+        self.level += 1
 
-        self.combat_power = round(((health_multiplier)*(self.health_bar))+((mana_multiplier)*(self.mana_bar)), 2)
+        health_multiplier = 1 + (self.level * self.health_growth_rate / 100)
+        mana_multiplier = 1 + (self.level * self.mana_growth_rate / 100)
 
-        self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class)
+        # Update health and mana bars
+        self.base_hp = round([x['init_health'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
+        self.health_bar = round(self.base_hp * health_multiplier)
+        self.base_hp = self.health_bar
+
+        self.base_mp = round([x['init_mana'] for x in loaded_data if x['job_name'] == self.job_class][0] * assign_random_multiplier())
+        self.mana_bar = round(self.base_mp * mana_multiplier)
+        self.base_mp = self.mana_bar
+
+        # Recalculate combat power
+        self.combat_power = round((self.health_bar) + (self.mana_bar), 2)
+
+        # Update mana regeneration rate and interval based on the new job class
+        self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
         player_status = tk.Canvas(frame, width=200, height=300, bg="red")
@@ -146,7 +181,7 @@ class Player:
     def auto_regen_mp(self, mana_regen_rate: int, regen_interval_ms: int) -> None:
 
         if self.mana_bar < self.base_mp:
-            print(f"{self.__class__.__name__} class method: auto_regen_mp")
+            print(f"{self.__class__.__name__} class method: auto_regen_mp = {mana_regen_rate}")
             self.mana_bar = min(self.mana_bar + mana_regen_rate, self.base_mp)
             self.update_mana_bar()  # Update the mana bar GUI here
         

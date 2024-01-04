@@ -20,8 +20,8 @@ welcome_lbl = tk.Label(frame, text="Welcome to Lord Of Towers!")
 welcome_lbl.grid(column=0, row=0)
 
 # Player object
-player1 = Player(name="Delali Nsiah-Asare")
-player2 = Player(name="ENEMY PLAYER")
+player1 = Player(name="Delali Nsiah-Asare", level=1)
+player2 = Player(name="ENEMY PLAYER", level=1)
 
 # HP and MP bars frame
 player1.create_hp_mp_bars(frame)
@@ -72,6 +72,9 @@ def create_skills_btns(current_player: Player, enemy_player: Player) -> tk.Frame
     # mage
     mage_btn = tk.Button(active_skill_btns, text="fireball", command=lambda: current_player.use_skill("fireball", enemy_player))
     mage_btn.grid(row=0, column=2, sticky=tk.W+tk.E)
+    # no class
+    no_class_btn = tk.Button(active_skill_btns, text="punch", command=lambda: current_player.use_skill("difficult punch", enemy_player))
+    no_class_btn.grid(row=0, column=3, sticky=tk.W+tk.E)
     return active_skill_btns
 
 active_skills_1 = create_skills_btns(player1, player2)
