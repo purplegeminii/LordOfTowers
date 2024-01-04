@@ -9,7 +9,7 @@
 
 # topics includes: dataclasses, json ...
  
- there are 3 buttons: "slash", "stab" and "fireball", corresponding to the respective Player job classes: Warrior, Assasin and Mage
+ there are 3 buttons: "slash", "stab" and "fireball", "punch", corresponding to the respective Player job classes: Warrior, Assasin, Mage and "no class"
 
  atm there is only 1 effective active skill for each job class
 
