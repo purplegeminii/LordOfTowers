@@ -100,6 +100,15 @@ class Player:
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
 
     def level_up(self) -> None:
+        """
+        simulates a player level up by increasing the level,
+        adjusting the hp and mp to suit such level,
+        adjusting the calculated combat power and
+        adjustng the mana regen rate.
+
+        Returns:
+        - None
+        """
         self.level += 1
 
         health_multiplier = 1 + (self.level * self.health_growth_rate / 100)
