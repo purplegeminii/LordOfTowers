@@ -1,5 +1,5 @@
 ## LordOfTowers
- python 'rpg' game with tkinter/pygame graphics
+ python Role Player Game with tkinter graphics
 
 # clone/download the repo and run the main.py file
 # the Player file contains a Player class
