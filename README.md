@@ -13,4 +13,6 @@
 
  atm there is only 1 effective active skill for each job class
 
- each Player object automatically regenerates 50 MP every 10 seconds
+ each Player object automatically regenerates 'mana' every few seconds
+
+ player level up and skill level up simulation
