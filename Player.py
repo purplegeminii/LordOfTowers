@@ -54,6 +54,21 @@ def assign_hp_mp_growth_rate(job_name: str) -> Tuple[int, int]:
         return 5, 9
     elif job_name == "no class":
         return 4, 12
+    
+def calculate_combat_power(health_bar: float, mana_bar: float, health_weight: float = 0.6, mana_weight: float = 0.4) -> float:
+    """
+    Calculates the combat power based on health and mana bars.
+
+    Args:
+    - health_bar (float): Current health bar value.
+    - mana_bar (float): Current mana bar value.
+    - health_weight (float): Weight/Importance of health in combat power calculation.
+    - mana_weight (float): Weight/Importance of mana in combat power calculation.
+
+    Returns:
+    - float: Calculated combat power.
+    """
+    return (health_bar * health_weight) + (mana_bar * mana_weight)
 
 
 @dataclass
@@ -96,7 +111,7 @@ class Player:
         self.mana_bar = round(self.base_mp * mana_multiplier)
         self.base_mp = self.mana_bar
 
-        self.combat_power = round((self.health_bar) + (self.mana_bar), 2)
+        self.combat_power = round(calculate_combat_power(self.health_bar, self.mana_bar), 2)
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
 
     def level_up(self) -> None:
@@ -122,7 +137,7 @@ class Player:
         self.base_mp = self.mana_bar
 
         # Recalculate combat power
-        self.combat_power = round((self.health_bar) + (self.mana_bar), 2)
+        self.combat_power = round(calculate_combat_power(self.health_bar, self.mana_bar), 2)
 
         # Update mana regeneration rate and interval based on the new job class
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
