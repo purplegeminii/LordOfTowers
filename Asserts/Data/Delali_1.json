@@ -3,10 +3,10 @@
     "level": 1,
     "job_class": "Mage",
     "health_bar": 482,
-    "mana_bar": 264,
+    "mana_bar": 242,
     "base_hp": 482,
-    "base_mp": 264,
-    "combat_power": 394.8,
+    "base_mp": 242,
+    "combat_power": 386.0,
     "passive_skill": [
         {
             "skill_name": "arcane-attunement",

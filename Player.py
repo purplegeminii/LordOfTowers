@@ -134,7 +134,7 @@ class Player:
         except FileNotFoundError:
             return {}  # Return an empty dictionary if the file doesn't exist
 
-    def update_player_data(self):
+    def update_player_data(self, new_skill_type: str = None, new_skill: dict = None) -> None:
         # Update self.player_data
         self.player_data["name"] = self.name
         self.player_data["level"] = self.level
@@ -151,6 +151,11 @@ class Player:
 
         self.player_data["passive_skill"] = passive_skills
         self.player_data["active_skill"] = active_skills
+
+        if new_skill_type and new_skill:
+            player_skills: List[Dict] = self.player_data[f"{new_skill_type}_skill"]
+            player_skills.append(new_skill)
+            self.player_data[f"{new_skill_type}_skill"] = player_skills
 
         # Write the updated data back to the JSON file
         with open(self.player_data_file_path, "w") as file:
@@ -183,6 +188,7 @@ class Player:
 
         # Update mana regeneration rate and interval based on the new job class
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
+        self.update_player_data()
         print(f"{self.__class__.__name__} class method: level up to {self.level}")
 
     def get_player_status(self, frame: tk.Frame) -> tk.Canvas:
