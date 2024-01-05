@@ -10,9 +10,9 @@ data = open(os.path.join("Asserts/Data", "job_class.json"))
 loaded_data: List[Dict] = json.load(data)
 jobs: List[str] = [job['job_name'] for job in loaded_data]
 
-def assign_file_path(player_name: str, player_lvl: int) -> str:
+def assign_file_path(player_name: str) -> str:
     player_fname = player_name.split(" ")[0]
-    path = f"{player_fname}_{player_lvl}.json"
+    path = f"{player_fname}.json"
     return os.path.join("Asserts/Data", path)
 
 def assign_job() -> str:
@@ -106,7 +106,7 @@ class Player:
     mana_growth_rate: int = field(init=False, repr=False)
 
     def __post_init__(self):
-        self.player_data_file_path = assign_file_path(self.name, self.level)
+        self.player_data_file_path = assign_file_path(self.name)
 
         self.health_growth_rate, self.mana_growth_rate = assign_hp_mp_growth_rate(self.job_class)
         health_multiplier = 1 + (self.level * self.health_growth_rate / 100)
