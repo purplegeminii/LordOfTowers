@@ -15,7 +15,7 @@
         "skill_name": "strength-boost",
         "skill_level": "1",
         "skill_description": "Increase your strength by {skill_level}% for 30 seconds.",
-        "skill_type": "active",
+        "skill_type": "passive",
         "skill_icon": "Asserts/Pictures/Icons/Skills/strength_boost.png",
         "skill_mana_cost": "100/{skill_level}",
         "skill_damage": "NA",
