@@ -1,0 +1,35 @@
+{
+    "name": "Delali Nsiah-Asare",
+    "level": 1,
+    "job_class": "Mage",
+    "health_bar": 482,
+    "mana_bar": 264,
+    "base_hp": 482,
+    "base_mp": 264,
+    "combat_power": 394.8,
+    "passive_skill": [
+        {
+            "skill_name": "arcane-attunement",
+            "skill_level": "1",
+            "skill_description": "Increases overall spell damage by 10%.",
+            "skill_type": "passive",
+            "skill_icon": "Asserts/Pictures/Icons/Skills/arcane_attunement.png",
+            "skill_duration": "60",
+            "skill_cooldown": "180"
+        }
+    ],
+    "active_skill": [
+        {
+            "skill_name": "fireball",
+            "skill_level": "1",
+            "skill_description": "Launches a fiery projectile at a target.",
+            "skill_type": "active",
+            "skill_icon": "Asserts/Pictures/Icons/Skills/fireball.png",
+            "skill_mana_cost": "50*{skill_level}",
+            "skill_damage": "50*{skill_level}",
+            "skill_range": "10",
+            "skill_duration": "5",
+            "skill_cooldown": "4"
+        }
+    ]
+}

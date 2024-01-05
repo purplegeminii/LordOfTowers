@@ -10,6 +10,11 @@ data = open(os.path.join("Asserts/Data", "job_class.json"))
 loaded_data: List[Dict] = json.load(data)
 jobs: List[str] = [job['job_name'] for job in loaded_data]
 
+def assign_file_path(player_name: str, player_lvl: int) -> str:
+    player_fname = player_name.split(" ")[0]
+    path = f"{player_fname}_{player_lvl}.json"
+    return os.path.join("Asserts/Data", path)
+
 def assign_job() -> str:
     global jobs
     weights = [30, 30, 30, 10]  # Adjust these weights based on the desired probability
@@ -35,7 +40,7 @@ def assign_random_multiplier() -> float:
 def assign_mana_regen_rate(job_name: str, player_lvl: int) -> Tuple[int, int]:
     # Implement this function based on job_name
     # returns mana_regen_rate and regen_interval_ms
-    multiplier = 1 + (0.1 * player_lvl)/2
+    multiplier = 1 + (0.1 * player_lvl)
     if job_name == 'Mage':
         return 60*multiplier, 12000  # Example mana regeneration rate for Mage
     elif job_name == 'Assassin':
@@ -83,6 +88,9 @@ class Player:
     base_mp: float = field(init=False)
     combat_power: float = field(init=False)
 
+    player_data_file_path: str = field(init=False, repr=False)
+    player_data: Dict = field(init=False, repr=False)
+
     hp_mp_bars: tk.Frame = field(init=False, repr=False)
     hp_canvas: tk.Canvas = field(init=False, repr=False)
     health_value: float = field(init=False, repr=False)
@@ -98,8 +106,9 @@ class Player:
     mana_growth_rate: int = field(init=False, repr=False)
 
     def __post_init__(self):
-        self.health_growth_rate, self.mana_growth_rate = assign_hp_mp_growth_rate(self.job_class)
+        self.player_data_file_path = assign_file_path(self.name, self.level)
 
+        self.health_growth_rate, self.mana_growth_rate = assign_hp_mp_growth_rate(self.job_class)
         health_multiplier = 1 + (self.level * self.health_growth_rate / 100)
         mana_multiplier = 1 + (self.level * self.mana_growth_rate / 100)
 
@@ -113,6 +122,39 @@ class Player:
 
         self.combat_power = round(calculate_combat_power(self.health_bar, self.mana_bar), 2)
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
+
+        self.player_data = self.load_player_data()
+        self.update_player_data()
+
+    def load_player_data(self):
+        try:
+            with open(self.player_data_file_path, "r") as file:
+                player_data = json.load(file)
+                return player_data
+        except FileNotFoundError:
+            return {}  # Return an empty dictionary if the file doesn't exist
+
+    def update_player_data(self):
+        # Update self.player_data
+        self.player_data["name"] = self.name
+        self.player_data["level"] = self.level
+        self.player_data["job_class"] = self.job_class
+        self.player_data["health_bar"] = self.health_bar
+        self.player_data["mana_bar"] = self.mana_bar
+        self.player_data["base_hp"] = self.base_hp
+        self.player_data["base_mp"] = self.base_mp
+        self.player_data["combat_power"] = self.combat_power
+
+        job_skills = next(job for job in loaded_data if job['job_name'] == self.job_class)
+        passive_skills = job_skills['passive_skill']
+        active_skills = job_skills['active_skill']
+
+        self.player_data["passive_skill"] = passive_skills
+        self.player_data["active_skill"] = active_skills
+
+        # Write the updated data back to the JSON file
+        with open(self.player_data_file_path, "w") as file:
+            json.dump(self.player_data, file, indent=4)
 
     def level_up(self) -> None:
         """
@@ -163,16 +205,16 @@ class Player:
         player_status.create_text(60, 80, text="Level:", fill="blue", font=('Arial', 16))
         player_status.create_text(140, 80, text=str(self.level), fill="blue", font=('Arial', 16))
 
-        player_status.create_text(60, 100, text="Job:", fill="blue", font=('Arial', 16))
+        player_status.create_text(50, 100, text="Job:", fill="blue", font=('Arial', 16))
         player_status.create_text(140, 100, text=self.job_class, fill="blue", font=('Arial', 16))
 
         hp = str(self.health_bar)+"/"+str(self.base_hp)
-        player_status.create_text(60, 120, text="HP:", fill="blue", font=('Arial', 16))
-        player_status.create_text(140, 120, text=hp, fill="blue", font=('Arial', 16))
+        player_status.create_text(50, 120, text="HP:", fill="blue", font=('Arial', 16))
+        player_status.create_text(130, 120, text=hp, fill="blue", font=('Arial', 16))
 
         mp = str(self.mana_bar)+"/"+str(self.base_mp)
-        player_status.create_text(60, 140, text="MP:", fill="blue", font=('Arial', 16))
-        player_status.create_text(140, 140, text=mp, fill="blue", font=('Arial', 16))
+        player_status.create_text(50, 140, text="MP:", fill="blue", font=('Arial', 16))
+        player_status.create_text(130, 140, text=mp, fill="blue", font=('Arial', 16))
 
         player_status.create_text(90, 180, text="Combat Power:", fill="blue", font=('Arial', 16))
         player_status.create_text(100, 200, text=str(self.combat_power), fill="blue", font=('Arial', 16))
