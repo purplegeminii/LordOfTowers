@@ -42,13 +42,13 @@ def assign_mana_regen_rate(job_name: str, player_lvl: int) -> Tuple[int, int]:
     # returns mana_regen_rate and regen_interval_ms
     multiplier = 1 + (0.1 * player_lvl)
     if job_name == 'Mage':
-        return 60*multiplier, 12000  # Example mana regeneration rate for Mage
+        return round(60*multiplier), 12000
     elif job_name == 'Assassin':
-        return 70*multiplier, 10000  # Example mana regeneration rate for Assassin
+        return round(70*multiplier), 10000
     elif job_name == 'Warrior':
-        return 50*multiplier, 15000  # Example mana regeneration rate for Warrior
+        return round(50*multiplier), 15000
     elif job_name == "no class":
-        return 30*multiplier, 5000  # Return default value if job_name doesn't match any class
+        return round(30*multiplier), 5000
     
 def assign_hp_mp_growth_rate(job_name: str) -> Tuple[int, int]:
     if job_name == 'Mage':
@@ -120,7 +120,7 @@ class Player:
         self.mana_bar = round(self.base_mp * mana_multiplier)
         self.base_mp = self.mana_bar
 
-        self.combat_power = round(calculate_combat_power(self.health_bar, self.mana_bar), 2)
+        self.combat_power = round(calculate_combat_power(self.base_hp, self.base_mp), 2)
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
 
         self.player_data = self.load_player_data()
@@ -184,10 +184,17 @@ class Player:
         self.base_mp = self.mana_bar
 
         # Recalculate combat power
-        self.combat_power = round(calculate_combat_power(self.health_bar, self.mana_bar), 2)
+        self.combat_power = round(calculate_combat_power(self.base_hp, self.base_mp), 2)
 
         # Update mana regeneration rate and interval based on the new job class
         self.mana_regen_rate, self.regen_interval_ms = assign_mana_regen_rate(self.job_class, self.level)
+
+        # Increment all skills' levels by 1
+        for skill_type in ['active_skill', 'passive_skill']:
+            for skill in self.player_data.get(skill_type, []):
+                skill_level = int(skill.get('skill_level', 1))  # Default level is 1 if not specified
+                skill['skill_level'] = str(skill_level + 1)  # Increment skill level by 1
+
         self.update_player_data()
         print(f"{self.__class__.__name__} class method: level up to {self.level}")
 
@@ -275,40 +282,37 @@ class Player:
         print(f"{self.name} received {damage} damage!")
 
     def use_skill(self, name_of_skill: str, enemy_player: Optional['Player'] = None) -> None:
-        # Check if the skill exists in the loaded_data
-        skill_exists = any(
-            job.get('job_name') == self.job_class and any(skill['skill_name'] == name_of_skill for skill in job['active_skill'] + job['passive_skill'])
-            for job in loaded_data
-        )
+        if 'passive_skill' in self.player_data or 'active_skill' in self.player_data:
+            # Check if the skill exists in the player's data
+            skills = self.player_data.get('active_skill', []) + self.player_data.get('passive_skill', [])
+            skill_exists = any(skill.get('skill_name') == name_of_skill for skill in skills)
 
-        if skill_exists:
-            # Find the skill within the loaded_data for the player's job class
-            job_skills = next(job for job in loaded_data if job['job_name'] == self.job_class)
-            skill = next((s for s in job_skills['active_skill'] + job_skills['passive_skill'] if s['skill_name'] == name_of_skill), None)
-
-            if skill:
+            if skill_exists:
                 print(f"{self.__class__.__name__} class method: use_skill")
-                # Determine if the skill is active or passive
-                is_active = skill['skill_type'] == 'active'
+                # Find the skill within the player's data
+                skill = next((s for s in skills if s['skill_name'] == name_of_skill), None)
 
-                # Perform actions based on whether the skill is active or passive
-                if is_active:
-                    # Placeholder logic for an active skill
-                    if enemy_player:
-                        # Placeholder damage calculation for demonstration purposes
-                        damage = int(eval(skill['skill_damage'].format(skill_level=skill['skill_level'])))
-                        mana_cost = int(eval(skill['skill_mana_cost'].format(skill_level=skill['skill_level'])))
-                        # Check if the player has enough mana to use the skill
-                        if self.mana_bar >= mana_cost:
-                            self.mana_bar -= mana_cost
-                            print(f"{mana_cost} mana used to activate {name_of_skill} skill")
-                            self.update_mana_bar()
-                            enemy_player.receive_damage(damage)
-                            print(f"{self.name} used {name_of_skill} on {enemy_player.name}!")
+                if skill:
+                    is_active = skill['skill_type'] == 'active'
+                    if is_active:
+                        if enemy_player:
+                            # Calculate damage based on skill level and player's level
+                            skill_level = int(skill['skill_level'])
+                            base_damage = int(eval(skill['skill_damage'].format(skill_level=skill_level)))
+                            modified_damage = base_damage * self.level  # Adjust damage based on player's level
+                            mana_cost = int(eval(skill['skill_mana_cost'].format(skill_level=skill_level)))
 
-                        else:
-                            print(f"{self.name} doesn't have enough mana to use {name_of_skill}!")
+                            if self.mana_bar >= mana_cost:
+                                self.mana_bar -= mana_cost
+                                print(f"{mana_cost} mana used to activate {name_of_skill} skill")
+                                self.update_mana_bar()
+                                enemy_player.receive_damage(modified_damage)
+                                print(f"{self.name} used {name_of_skill} on {enemy_player.name}, imparting {modified_damage} damage!")
+                            else:
+                                print(f"{self.name} doesn't have enough mana to use {name_of_skill}!")
+                    else:
+                        # Placeholder logic for passive skill (if any)
+                        print(f"{self.name} used {name_of_skill} (passive skill)!")
+        else:
+            print("No skills available for this player.")
 
-                else:
-                    # Placeholder logic for a passive skill (if any)
-                    print(f"{self.name} used {name_of_skill} (passive skill)!")
