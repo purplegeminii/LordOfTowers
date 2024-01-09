@@ -40,15 +40,23 @@ def assign_random_multiplier() -> float:
 def assign_mana_regen_rate(job_name: str, player_lvl: int) -> Tuple[int, int]:
     # Implement this function based on job_name
     # returns mana_regen_rate and regen_interval_ms
+    """
+    Returns:
+    - Tuple[int, int]: mana_regen_rate and regen_interval_ms
+    """
     multiplier = 1 + (0.1 * player_lvl)
+    timer_: int = 5000
+    mana_: int = 30
     if job_name == 'Mage':
-        return round(60*multiplier), 12000
+        mana_ = 60; timer_ = 12
     elif job_name == 'Assassin':
-        return round(70*multiplier), 10000
+        mana_ = 70; timer_ = 10
     elif job_name == 'Warrior':
+        mana_ = 50; timer_ = 15
         return round(50*multiplier), 15000
     elif job_name == "no class":
-        return round(30*multiplier), 5000
+        mana_ = 30; timer_ = 5
+    return round(mana_*multiplier), timer_*1000
     
 def assign_hp_mp_growth_rate(job_name: str) -> Tuple[int, int]:
     if job_name == 'Mage':

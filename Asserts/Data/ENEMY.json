@@ -1,35 +1,35 @@
 {
     "name": "ENEMY PLAYER",
     "level": 1,
-    "job_class": "Warrior",
-    "health_bar": 614,
-    "mana_bar": 109,
-    "base_hp": 614,
-    "base_mp": 109,
-    "combat_power": 412.0,
+    "job_class": "Mage",
+    "health_bar": 408,
+    "mana_bar": 286,
+    "base_hp": 408,
+    "base_mp": 286,
+    "combat_power": 359.2,
     "passive_skill": [
         {
-            "skill_name": "battle-fury",
+            "skill_name": "arcane-attunement",
             "skill_level": "1",
-            "skill_description": "Increases physical damage by 15% and reduces incoming damage by 20% for 10 seconds after landing a critical hit.",
+            "skill_description": "Increases overall spell damage by 10%.",
             "skill_type": "passive",
-            "skill_icon": "Asserts/Pictures/Icons/Skills/battle_fury.png",
-            "skill_duration": "10",
-            "skill_cooldown": "30"
+            "skill_icon": "Asserts/Pictures/Icons/Skills/arcane_attunement.png",
+            "skill_duration": "60",
+            "skill_cooldown": "180"
         }
     ],
     "active_skill": [
         {
-            "skill_name": "slash",
+            "skill_name": "fireball",
             "skill_level": "1",
-            "skill_description": "Unleashes a powerful melee strike.",
+            "skill_description": "Launches a fiery projectile at a target.",
             "skill_type": "active",
-            "skill_icon": "Asserts/Pictures/Icons/Skills/slash.png",
-            "skill_mana_cost": "35*{skill_level}",
-            "skill_damage": "65*{skill_level}",
-            "skill_range": "5",
-            "skill_duration": "1",
-            "skill_cooldown": "6"
+            "skill_icon": "Asserts/Pictures/Icons/Skills/fireball.png",
+            "skill_mana_cost": "70*{skill_level}",
+            "skill_damage": "45*{skill_level}",
+            "skill_range": "10",
+            "skill_duration": "5",
+            "skill_cooldown": "4"
         }
     ]
 }

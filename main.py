@@ -53,10 +53,11 @@ def create_general_btns(player: Player) -> tk.Frame:
     lvl_up_btn.grid(row=0, column=1, sticky=tk.W+tk.E)
     return buttonframe
 
-# general button frame
+# general buttons frame for player 1
 generalbuttonframe1 = create_general_btns(player1)
 generalbuttonframe1.place(x=50, y=200)
 
+# general buttons frame for player 2
 generalbuttonframe2 = create_general_btns(player2)
 generalbuttonframe2.place(x=530, y=200)
 
