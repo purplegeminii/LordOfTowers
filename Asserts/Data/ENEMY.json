@@ -1,50 +1,35 @@
 {
     "name": "ENEMY PLAYER",
     "level": 1,
-    "job_class": "no class",
-    "health_bar": 269,
-    "mana_bar": 268,
-    "base_hp": 269,
-    "base_mp": 268,
-    "combat_power": 268.6,
+    "job_class": "Mage",
+    "health_bar": 445,
+    "mana_bar": 242,
+    "base_hp": 445,
+    "base_mp": 242,
+    "combat_power": 363.8,
     "passive_skill": [
         {
-            "skill_name": "self-regeneration",
+            "skill_name": "arcane-attunement",
             "skill_level": "1",
-            "skill_description": "Regenerate 3*{skill_level}% of your total health every 7 seconds.",
+            "skill_description": "Increases overall spell damage by 10%.",
             "skill_type": "passive",
-            "skill_icon": "Asserts/Pictures/Icons/Skills/self_regeneration.png",
-            "skill_mana_cost": "50/{skill_level}",
-            "skill_damage": "NA",
-            "skill_range": "NA",
-            "skill_duration": "1",
-            "skill_cooldown": "10"
-        },
-        {
-            "skill_name": "strength-boost",
-            "skill_level": "1",
-            "skill_description": "Increase your strength by 3*{skill_level}% for 30 seconds.",
-            "skill_type": "passive",
-            "skill_icon": "Asserts/Pictures/Icons/Skills/strength_boost.png",
-            "skill_mana_cost": "100/{skill_level}",
-            "skill_damage": "NA",
-            "skill_range": "NA",
-            "skill_duration": "30",
-            "skill_cooldown": "60"
+            "skill_icon": "Asserts/Pictures/Icons/Skills/arcane_attunement.png",
+            "skill_duration": "60",
+            "skill_cooldown": "180"
         }
     ],
     "active_skill": [
         {
-            "skill_name": "difficult punch",
+            "skill_name": "fireball",
             "skill_level": "1",
-            "skill_description": "Unleashes a basic melee strike befitting of a weak player.",
+            "skill_description": "Launches a fiery projectile at a target.",
             "skill_type": "active",
-            "skill_icon": "Asserts/Pictures/Icons/Skills/difficult_punch.png",
-            "skill_mana_cost": "100*{skill_level}",
-            "skill_damage": "100*{skill_level}",
-            "skill_range": "5",
+            "skill_icon": "Asserts/Pictures/Icons/Skills/fireball.png",
+            "skill_mana_cost": "70*{skill_level}",
+            "skill_damage": "45*{skill_level}",
+            "skill_range": "10",
             "skill_duration": "5",
-            "skill_cooldown": "5"
+            "skill_cooldown": "4"
         }
     ]
 }

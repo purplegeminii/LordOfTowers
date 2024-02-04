@@ -2,11 +2,11 @@
     "name": "Delali Nsiah-Asare",
     "level": 1,
     "job_class": "Mage",
-    "health_bar": 408,
-    "mana_bar": 286,
-    "base_hp": 408,
-    "base_mp": 286,
-    "combat_power": 359.2,
+    "health_bar": 445,
+    "mana_bar": 264,
+    "base_hp": 445,
+    "base_mp": 264,
+    "combat_power": 372.6,
     "passive_skill": [
         {
             "skill_name": "arcane-attunement",
