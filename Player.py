@@ -59,7 +59,6 @@ def assign_mana_regen_rate(job_name: str, player_lvl: int) -> Tuple[int, int]:
     elif job_name == 'Warrior':
         mana_ = 50
         timer_ = 15
-        return round(50 * multiplier), 15000
     elif job_name == "no class":
         mana_ = 30
         timer_ = 5
@@ -185,7 +184,7 @@ class Player:
         simulates a player level up by increasing the level,
         adjusting the hp and mp to suit such level,
         adjusting the calculated combat power and
-        adjustng the mana regen rate.
+        adjusting the mana regen rate.
 
         Returns:
         - None
@@ -275,13 +274,13 @@ class Player:
     def update_health_bar(self) -> None:
         self.health_value = self.health_bar / self.base_hp * 100
         self.hp_canvas.delete(self.health_bar_gui)
-        self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, (self.health_value) * 2, 30, fill="green")
+        self.health_bar_gui = self.hp_canvas.create_rectangle(0, 0, self.health_value * 2, 30, fill="green")
         print(f"{self.__class__.__name__} class method: update HP")
 
     def update_mana_bar(self) -> None:
         self.mana_value = self.mana_bar / self.base_mp * 100
         self.mp_canvas.delete(self.mana_bar_gui)
-        self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, (self.mana_value) * 2, 30, fill="blue")
+        self.mana_bar_gui = self.mp_canvas.create_rectangle(0, 0, self.mana_value * 2, 30, fill="blue")
         print(f"{self.__class__.__name__} class method: update MP")
 
     def auto_regen_mp(self, mana_regen_rate: int, regen_interval_ms: int) -> None:
@@ -325,8 +324,8 @@ class Player:
                                 print(f"{mana_cost} mana used to activate {name_of_skill} skill")
                                 self.update_mana_bar()
                                 enemy_player.receive_damage(modified_damage)
-                                print(
-                                    f"{self.name} used {name_of_skill} on {enemy_player.name}, imparting {modified_damage} damage!")
+                                print(f"{self.name} used {name_of_skill} on {enemy_player.name}, "
+                                      f"imparting {modified_damage} damage!")
                             else:
                                 print(f"{self.name} doesn't have enough mana to use {name_of_skill}!")
                     else:
